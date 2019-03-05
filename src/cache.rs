@@ -6,11 +6,10 @@
 
 use std::ptr;
 
-use BlkidError;
+use BlkIdError;
 use dev::Devs;
 use blkid_sys::*;
-use result;
-
+use ::cvt;
 
 #[derive(Debug)]
 pub struct Cache {
@@ -18,11 +17,11 @@ pub struct Cache {
 }
 
 impl Cache {
-    pub fn new() -> Result<Cache, BlkidError> {
+    pub fn new() -> Result<Cache, BlkIdError> {
         let mut c: blkid_cache = ptr::null_mut();
         unsafe {
-            result(blkid_get_cache(&mut c, ptr::null()))?;
-            result(blkid_probe_all(c))?;
+            cvt(blkid_get_cache(&mut c, ptr::null()))?;
+            cvt(blkid_probe_all(c))?;
         }
         Ok(Cache { cache: c })
     }
