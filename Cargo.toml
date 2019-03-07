@@ -9,6 +9,10 @@ authors = ["Chris Holcombe <xfactor973@gmail.com>"]
 categories = ["api-bindings"]
 
 [dependencies]
-blkid-sys = "^0.1"
 libc = "^0.2"
 err-derive = "0.1.5"
+blkid-sys = { path = "./blkid-sys"}
+[workspace]
+members = [
+	"blkid-sys",
+]
