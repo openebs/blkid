@@ -3,8 +3,11 @@ use blkid::probe::Probe;
 use std::fs;
 
 fn main() {
-    let partitions = fs::read_to_string("/proc/partitions").expect("failed to get list of partitions");
-    let partitions = partitions.lines().skip(2)
+    let partitions =
+        fs::read_to_string("/proc/partitions").expect("failed to get list of partitions");
+    let partitions = partitions
+        .lines()
+        .skip(2)
         .filter_map(|line| line.split_whitespace().nth(3));
 
     println!("DEVICE, FSTYPE, UUID, PARTUUID");
@@ -17,10 +20,10 @@ fn main() {
         let dm_;
         let path = match fs::read_to_string(&dm_name) {
             Ok(device_map) => {
-                dm_ = ["/dev/mapper/", device_map.trim_right()].concat();
+                dm_ = ["/dev/mapper/", device_map.trim_end()].concat();
                 &dm_
             }
-            Err(_) => &path
+            Err(_) => &path,
         };
 
         println!(

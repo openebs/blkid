@@ -6,10 +6,10 @@
 
 use std::ptr;
 
-use BlkIdError;
-use dev::Devs;
 use blkid_sys::*;
-use ::cvt;
+use cvt;
+use dev::Devs;
+use BlkIdError;
 
 #[derive(Debug)]
 pub struct Cache {

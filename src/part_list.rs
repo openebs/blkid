@@ -1,5 +1,5 @@
-use blkid_sys::*;
 use crate::partition::Partition;
+use blkid_sys::*;
 use errors::*;
 use std::ptr;
 
@@ -29,9 +29,6 @@ impl PartList {
     }
 
     pub fn numof_partitions(&self) -> Result<u32, BlkIdError> {
-        unsafe {
-            cvt(blkid_partlist_numof_partitions(self.0))
-                .map(|v| v as u32)
-        }
+        unsafe { cvt(blkid_partlist_numof_partitions(self.0)).map(|v| v as u32) }
     }
 }

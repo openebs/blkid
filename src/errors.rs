@@ -1,5 +1,5 @@
-use std::ptr;
 use std::io;
+use std::ptr;
 
 /// Custom error handling for the library
 #[derive(Debug, Error)]
@@ -7,7 +7,7 @@ pub enum BlkIdError {
     #[error(display = "I/O error: {}", _0)]
     Io(io::Error),
     #[error(display = "non-UTF8 string")]
-    InvalidStr
+    InvalidStr,
 }
 
 pub(crate) trait CResult: Copy {
@@ -15,19 +15,27 @@ pub(crate) trait CResult: Copy {
 }
 
 impl CResult for i32 {
-    fn is_error(self) -> bool { self < 0 }
+    fn is_error(self) -> bool {
+        self < 0
+    }
 }
 
 impl CResult for i64 {
-    fn is_error(self) -> bool { self < 0 }
+    fn is_error(self) -> bool {
+        self < 0
+    }
 }
 
 impl<T> CResult for *const T {
-    fn is_error(self) -> bool { self == ptr::null() }
+    fn is_error(self) -> bool {
+        self == ptr::null()
+    }
 }
 
 impl<T> CResult for *mut T {
-    fn is_error(self) -> bool { self == ptr::null_mut() }
+    fn is_error(self) -> bool {
+        self == ptr::null_mut()
+    }
 }
 
 pub(crate) fn cvt<T: CResult>(result: T) -> Result<T, BlkIdError> {
