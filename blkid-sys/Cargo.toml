@@ -8,4 +8,4 @@ documentation = "https://docs.rs/blkid-sys"
 build = "build.rs"
 categories = ["external-ffi-bindings"]
 [build-dependencies]
-bindgen = "0.47"
+bindgen = "*"
