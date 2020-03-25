@@ -10,7 +10,7 @@ categories = ["api-bindings"]
 
 [dependencies]
 libc = "^0.2"
-err-derive = "0.1"
+err-derive = "0.2"
 blkid-sys = { path = "./blkid-sys"}
 [workspace]
 members = [
